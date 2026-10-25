@@ -1,0 +1,123 @@
+{
+  "applicants": [
+    {
+      "applicant_id": "DEMO-001",
+      "registration_number": "DEMO-0001",
+      "gender": "Female",
+      "full_name": "ALEX SAMPLE",
+      "surname": "SAMPLE",
+      "other_name": "ALEX",
+      "date_of_birth": "1998-02-18",
+      "age": 28,
+      "religion": "",
+      "nationality": "Sri Lankan",
+      "civil_status": "Single",
+      "address": "Demo Street, Colombo",
+      "living_place": "Colombo",
+      "mobile_number": "0000000000",
+      "telephone_home": "",
+      "alternate_phone": "",
+      "email": "alex.sample@example.invalid",
+      "preferred_job_category": "Office Assistant",
+      "english_status": "Good",
+      "registration_date": "2026-10-12",
+      "registration_source": "Demo",
+      "current_status": "GREEN_REGISTERED",
+      "created_at": "2026-10-12T00:00:00Z",
+      "updated_at": "2026-10-12T00:00:00Z"
+    }
+  ],
+  "cv_applications": [],
+  "passports": [
+    {
+      "passport_id": "DEMO-PP-001",
+      "applicant_id": "DEMO-001",
+      "passport_number": "DEMO12345",
+      "place_of_birth": "Colombo",
+      "date_of_issue": "2025-01-01",
+      "date_of_expiry": "2035-01-01",
+      "passport_status": "With Applicant",
+      "remarks": "SAMPLE ONLY"
+    }
+  ],
+  "education": [
+    {
+      "education_id": "DEMO-ED-001",
+      "applicant_id": "DEMO-001",
+      "education_qualification": "Secondary school",
+      "professional_qualification": "",
+      "languages": [
+        "English"
+      ],
+      "english_status": "Good",
+      "arabic_status": "None"
+    }
+  ],
+  "work_experiences": [
+    {
+      "experience_id": "DEMO-WE-001",
+      "applicant_id": "DEMO-001",
+      "sequence": 1,
+      "from_date": "2023-01-01",
+      "to_date": "2024-01-01",
+      "company_place": "Sample Company",
+      "position": "Office Assistant",
+      "duration": "1 year",
+      "country": "Sri Lanka",
+      "remarks": "Synthetic example"
+    }
+  ],
+  "followups": [],
+  "follow_up_contacts": [],
+  "business_contacts": [],
+  "timeline_rules": [],
+  "timeline_events": [],
+  "vacancies": [],
+  "embassy_interviews": [],
+  "document_checklists": [],
+  "departures": [],
+  "tickets": [],
+  "activity_history": [],
+  "staff": [
+    {
+      "staff_id": "DEMO-S1",
+      "name": "Demo Administrator",
+      "telephone": "0000000000",
+      "role": "Administrator",
+      "active": true
+    }
+  ],
+  "sync_logs": [],
+  "settings": {
+    "google_sheet_url": "",
+    "google_apps_script_endpoint": "",
+    "agency_name": "TRANS ARABIAN TOURS & TRAVELS",
+    "agency_email": "transarabianexcel@gmail.com",
+    "agency_phone": "+94 11 257 8899",
+    "agency_address": "120, Galle Road, Colombo 03, Sri Lanka",
+    "companies": [
+      "AL-MARAI GROUP",
+      "GULF CATERING CO",
+      "BIN LADIN GROUP",
+      "ARABIAN BEVERAGES"
+    ],
+    "sub_companies": [
+      "Airport Logistics",
+      "Central Kitchen",
+      "Facilities Branch",
+      "Plant Operations Riyadh"
+    ],
+    "job_categories": [
+      "Kitchen Helper",
+      "Cook / Chef",
+      "Housekeeping",
+      "Welder",
+      "Heavy Driver",
+      "Light Driver",
+      "Mason",
+      "Electrician",
+      "Security Guard",
+      "Factory Helper"
+    ]
+  }
+}
