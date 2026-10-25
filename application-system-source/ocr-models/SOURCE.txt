@@ -1,0 +1,1 @@
+Bundled English (eng), Sinhala (sin), Tamil (tam) traineddata from https://github.com/tesseract-ocr/tessdata_best (Apache-2.0). Engine: https://github.com/naptha/tesseract.js (Apache-2.0). Additional traineddata must be obtained from the official tessdata_best repository.

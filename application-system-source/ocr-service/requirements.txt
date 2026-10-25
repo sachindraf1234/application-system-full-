@@ -1,0 +1,6 @@
+# Optional high-accuracy private OCR sidecar. Model weights have a separate modified
+# OpenRAIL-M license: https://github.com/datalab-to/surya/blob/master/MODEL_LICENSE
+surya-ocr==0.22.1
+fastapi>=0.115,<1
+uvicorn>=0.35,<1
+Pillow>=10,<13
