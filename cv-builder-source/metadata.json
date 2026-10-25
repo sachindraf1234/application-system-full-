@@ -1,0 +1,8 @@
+{
+  "name": "Remix Remix Remix Bilingual CV Auto-Filler & Designer",
+  "description": "Upload resumes as PDFs or images, extract details instantly using high-fidelity OCR, and preview/download them in an exact bilingual (Romanian-English) standardized CV format.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bilingual CV Generator</title>
+    <script>
+      (function() {
+        try {
+          if (typeof window !== 'undefined' && window.fetch) {
+            var origFetch = window.fetch;
+            var customFetch = null;
+            Object.defineProperty(window, 'fetch', {
+              get: function() {
+                return customFetch || origFetch;
+              },
+              set: function(fn) {
+                customFetch = fn;
+              },
+              configurable: true,
+              enumerable: true
+            });
+          }
+        } catch (e) {
+          // Ignore if fetch cannot be redefined
+        }
+      })();
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
+
