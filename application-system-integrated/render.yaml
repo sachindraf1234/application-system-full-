@@ -1,0 +1,16 @@
+# Deploy only the bundled SYNTHETIC data. Never point a public demo at real candidate records.
+services:
+  - type: web
+    name: application-system-synthetic-demo
+    runtime: node
+    plan: free
+    buildCommand: npm ci --include=dev --no-audit --no-fund && npm run build
+    startCommand: npm run start
+    healthCheckPath: /api/demo-status
+    envVars:
+      - key: NODE_VERSION
+        value: 22.13.1
+      - key: PUBLIC_DEMO
+        value: 'true'
+      - key: DATA_DIR
+        value: ./demo-data

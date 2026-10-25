@@ -1,0 +1,6 @@
+{
+  "name": "TRANS ARABIAN — Applicant & Recruitment Management System",
+  "description": "Complete operational management dashboard for Trans Arabian agency tracking applicants from registration to departure with smart AI assistance and automated Google Sheets sync.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
