@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 520" width="400" height="520">
+  <!-- Stand & Base -->
+  <g fill="none" stroke="#800020" stroke-width="11" stroke-linecap="round" stroke-linejoin="round">
+    <!-- Meridian arc behind globe -->
+    <path d="M 200 40 C 315 40 375 140 375 220 C 375 320 280 400 170 400 C 130 400 95 385 85 365 C 70 335 90 410 110 440" />
+    <path d="M 105 435 C 100 448 115 465 140 468" />
+  </g>
+  <!-- Oval base -->
+  <path d="M 65 470 C 65 445 335 445 335 470 C 335 485 65 485 65 470 Z" fill="#800020" />
+  
+  <!-- Outer Globe Ring -->
+  <circle cx="200" cy="220" r="165" fill="none" stroke="#800020" stroke-width="12" />
+  <circle cx="200" cy="220" r="150" fill="#ffffff" stroke="#800020" stroke-width="4" />
+
+  <!-- Latitude / Longitude grid lines -->
+  <!-- Horizontal parallels -->
+  <ellipse cx="200" cy="150" rx="130" ry="35" fill="none" stroke="#800020" stroke-width="3.5" />
+  <ellipse cx="200" cy="220" rx="150" ry="40" fill="none" stroke="#800020" stroke-width="4" />
+  <ellipse cx="200" cy="290" rx="130" ry="35" fill="none" stroke="#800020" stroke-width="3.5" />
+  
+  <!-- Vertical meridians -->
+  <ellipse cx="200" cy="220" rx="55" ry="150" fill="none" stroke="#800020" stroke-width="4" />
+  <ellipse cx="200" cy="220" rx="105" ry="150" fill="none" stroke="#800020" stroke-width="3.5" />
+  <line x1="200" y1="70" x2="200" y2="370" stroke="#800020" stroke-width="3.5" />
+
+  <!-- Airplane Silhouette tilted at ~48 deg -->
+  <g transform="translate(200, 215) rotate(-42)" fill="#800020" stroke="#800020" stroke-width="1">
+    <!-- Fuselage -->
+    <path d="M 0 -115 C 10 -100 13 -70 13 40 C 13 85 9 110 0 118 C -9 110 -13 85 -13 40 C -13 -70 -10 -100 0 -115 Z" />
+    <!-- Nose cone -->
+    <path d="M 0 -125 C 8 -118 8 -110 0 -105 C -8 -110 -8 -118 0 -125 Z" />
+    <!-- Main Wings -->
+    <path d="M 10 -25 L 115 35 C 120 38 118 48 108 48 L 12 25 L 12 60 L 45 85 C 48 88 45 94 38 94 L 0 88 L -38 94 C -45 94 -48 88 -45 85 L -12 60 L -12 25 L -108 48 C -118 48 -120 38 -115 35 L -10 -25 Z" />
+    <!-- Jet Engines -->
+    <rect x="35" y="10" width="8" height="22" rx="4" />
+    <rect x="-43" y="10" width="8" height="22" rx="4" />
+  </g>
+
+  <!-- L. No: 1422 Text at bottom -->
+  <text x="200" y="515" text-anchor="middle" font-family="'Times New Roman', Times, serif" font-size="34" font-weight="bold" fill="#800020" letter-spacing="1">L. No: 1422</text>
+</svg>
