@@ -7,11 +7,14 @@ import cvRoutes from './server/cvRoutes.js';
 import cvApplicationRoutes from './server/cvApplicationRoutes.js';
 import localOcrRoutes from './server/localOcr.js';
 import evisaRoutes from './server/evisaRoutes.js';
+import moduleRegistryRoutes from './server/moduleRegistry.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const app = express();
+// Module proxy must come before body parsing so uploads/forms stream through unchanged.
+app.use(moduleRegistryRoutes);
 app.use(express.json({ limit: '50mb' }));
 app.use(express.urlencoded({ extended: true, limit: '50mb' }));
 app.use(express.static(path.resolve(__dirname, 'public')));

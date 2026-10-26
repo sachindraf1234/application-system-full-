@@ -40,6 +40,7 @@ import { CheckCircle2, AlertCircle, Info, Phone, AlertTriangle } from 'lucide-re
 
 const CVBuilder = React.lazy(() => import('./CVBuilder'));
 const EvisaWorkspace = React.lazy(() => import('./EvisaWorkspace'));
+const ModuleSection = React.lazy(() => import('./components/ModuleSection').then((m) => ({ default: m.ModuleSection })));
 
 export default function App() {
   // Navigation State
@@ -304,6 +305,15 @@ export default function App() {
             {activeTab === 'evisa' && (
               <React.Suspense fallback={<div className="p-8 text-sm text-slate-500">Opening E-Visa…</div>}>
                 <EvisaWorkspace applicants={applicants} onBack={() => setActiveTab(returnTab)} />
+              </React.Suspense>
+            )}
+
+            {activeTab.startsWith('mod_') && (
+              <React.Suspense fallback={<div className="p-8 text-sm text-slate-500">Opening module…</div>}>
+                <ModuleSection
+                  moduleId={({ mod_insurance: 'insurance-agent', mod_slbfe: 'slbfe-automation', mod_transarabian: 'transarabian-agent' } as Record<string, string>)[activeTab]}
+                  onBack={() => setActiveTab(returnTab)}
+                />
               </React.Suspense>
             )}
 

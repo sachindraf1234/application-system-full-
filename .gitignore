@@ -1,0 +1,10 @@
+# Module secrets and runtime data (never commit)
+modules/*/.env
+modules/*/.venv/
+modules/*/data/
+modules/*/uploads/
+modules/*/instance/
+modules/*/output/
+modules/*/work_preview/
+**/*.db
+**/__pycache__/

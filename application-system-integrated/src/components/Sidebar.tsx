@@ -16,7 +16,10 @@ import {
   Plane,
   UploadCloud,
   Files,
-  Globe2
+  Globe2,
+  Umbrella,
+  ClipboardCheck,
+  Bot
 } from 'lucide-react';
 import { DashboardStats } from '../types';
 
@@ -128,6 +131,27 @@ export const Sidebar: React.FC<Props> = ({
       icon: Download,
       badge: null,
       desc: 'Statutory SLBFE returns & printouts'
+    },
+    {
+      id: 'mod_insurance',
+      label: 'Insurance AI Agent',
+      icon: Umbrella,
+      badge: 'MOD',
+      desc: 'Travel insurance email automation (Allianz / LOLC)'
+    },
+    {
+      id: 'mod_slbfe',
+      label: 'SLBFE Training & FBR',
+      icon: ClipboardCheck,
+      badge: 'MOD',
+      desc: 'Training & female FBR checkers (CLI suite)'
+    },
+    {
+      id: 'mod_transarabian',
+      label: 'Trans Arabian WhatsApp Agent',
+      icon: Bot,
+      badge: 'MOD',
+      desc: 'WhatsApp agent (source needs restoring)'
     }
   ];
 
