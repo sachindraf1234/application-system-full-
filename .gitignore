@@ -1,7 +1,7 @@
 # Module secrets and runtime data (never commit)
 modules/*/.env
 modules/*/.venv/
-modules/*/data/
+modules/*/data/*
 modules/*/uploads/
 modules/*/instance/
 modules/*/output/
@@ -11,3 +11,5 @@ modules/*/work_preview/
 
 # Local-only: Trans Arabian bot settings (contains secrets; never commit)
 modules/*/server/config.py
+!modules/insurance-agent/data/
+!modules/insurance-agent/data/cities.txt

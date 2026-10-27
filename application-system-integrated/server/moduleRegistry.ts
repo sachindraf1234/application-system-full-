@@ -10,6 +10,7 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import { Router, Request, Response } from 'express';
 import { parse as parseDotenv } from 'dotenv';
+import crypto from 'crypto';
 
 const APP_DIR = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const MODULES_DIR = path.resolve(APP_DIR, '..', 'modules');
@@ -209,8 +210,39 @@ function findDef(id: string) {
 const router = Router();
 // Starting modules runs real mail/automation code with stored credentials and no login of its own,
 // so it is never allowed on a public demo server, even if MODULES_ENABLED is set.
+// Optional access gate (HTTP basic auth). When MODULE_ACCESS_PASSWORD is set, module web UIs and
+// start/stop controls require it. Username is "transarabian".
+const GATE_PASSWORD = process.env.MODULE_ACCESS_PASSWORD || '';
+const GATE_USER = 'transarabian';
+
+function gateOk(req: Request): boolean {
+  if (!GATE_PASSWORD) return true;
+  const header = req.headers.authorization || '';
+  if (!header.startsWith('Basic ')) return false;
+  const decoded = Buffer.from(header.slice(6), 'base64').toString('utf8');
+  const idx = decoded.indexOf(':');
+  if (idx < 0) return false;
+  const same = (a: string, b: string) => {
+    const x = Buffer.from(a), y = Buffer.from(b);
+    return x.length === y.length && crypto.timingSafeEqual(x, y);
+  };
+  return same(decoded.slice(0, idx), GATE_USER) && same(decoded.slice(idx + 1), GATE_PASSWORD);
+}
+
+// Modules that can message real people or send email never start on the public preview
+// unless the access gate is enabled. Dry-run modules may always start there.
 const startsEnabled = (def?: ModuleDef) =>
-  process.env.MODULES_ENABLED === 'true' && (process.env.PUBLIC_DEMO !== 'true' || def?.dryRun === true);
+  process.env.MODULES_ENABLED === 'true' &&
+  (process.env.PUBLIC_DEMO !== 'true' || def?.dryRun === true || GATE_PASSWORD !== '');
+
+router.use((req: Request, res: Response, next) => {
+  const guarded = req.path.startsWith('/module/') || (req.method !== 'GET' && req.path.startsWith('/api/modules'));
+  if (guarded && !gateOk(req)) {
+    res.set('WWW-Authenticate', 'Basic realm="Module access"');
+    return res.status(401).type('text').send('Authentication required.');
+  }
+  next();
+});
 
 router.get('/api/modules', (_req: Request, res: Response) => {
   res.json({ modulesEnabled: process.env.MODULES_ENABLED === 'true', modules: DEFINITIONS.map(describe) });

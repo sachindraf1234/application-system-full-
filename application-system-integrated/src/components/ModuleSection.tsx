@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { ArrowLeft, ExternalLink, Play, Square, RefreshCw, AlertTriangle, Terminal } from 'lucide-react';
-import transArabianLogo from '../assets/images/trans_arabian_logo_1790581026074.jpg';
+import transArabianLogo from '../assets/images/trans_arabian_logo_official.jpeg';
 
 interface ModuleInfo {
   id: string;
