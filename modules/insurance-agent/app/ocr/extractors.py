@@ -160,7 +160,7 @@ def _police_salutation_and_gender(text: str) -> tuple[str, str]:
 def extract_police_report(text: str, ocr_conf: float = 0.0) -> dict:
     t = re.sub(r"[ \t]+", " ", text or "")
     salutation, gender = _police_salutation_and_gender(t)
-    # name: line after "certify that:" (OCR often glues the title: "Mr.SAMPLESURNAME ...")
+    # name: line after "certify that:" (OCR often glues the title: "Mr.WIJELATH ...")
     name = _get(r"certify that:?\s*\n?\s*(?:Mr\.?|Ms\.?|Mrs\.?|Miss\.?|Master\.?)?\s*([A-Z][A-Z .]{5,})", t)
     if not name:
         name = _get(r"\b(?:Mr|Ms|Mrs|Miss)\.?\s*([A-Z][A-Z .]{8,})\n", t)

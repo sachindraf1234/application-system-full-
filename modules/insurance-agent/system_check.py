@@ -63,7 +63,7 @@ def filetuple(path: Path): return (io.BytesIO(path.read_bytes()), path.name)
 def main():
   with tempfile.TemporaryDirectory(prefix='insurance-system-check-') as td:
     work=Path(td); p1=work/'passport1.pdf'; p2=work/'passport2.pdf'; application=work/'application.pdf'
-    passport_pdf(p1,'N10199973','SAMPLESURNAME','PEDIGE NUWAN PIYANKARA')
+    passport_pdf(p1,'N10199973','WIJELATH','PEDIGE NUWAN PIYANKARA')
     passport_pdf(p2,'N12345678','RAJAPAKSHA','PATHIRANAGE IRESH LOSHANA')
     pdf_text(application,['Applicant application form','Contact mobile phone: 0771234567',
                           'Travel insurance telephone contact number supplied by applicant.'])
@@ -89,7 +89,7 @@ def main():
         assert first.salutation=='Mr.' and first.gender=='Male'
     assert c.get(f'/review/{first_id}').status_code==200
     r=c.post(f'/review/{first_id}',data={'company':'LOLC','kind':'NEW','salutation':'Mr.',
-        'gender':'Male','surname':'SAMPLESURNAME','given_names':'PEDIGE NUWAN PIYANKARA',
+        'gender':'Male','surname':'WIJELATH','given_names':'PEDIGE NUWAN PIYANKARA',
         'passport_no':'N10199973','birthday':'1989-01-18','telephone':'771234567',
         'addr_no':'41/A','addr_street':'SAMAGI MAWATHA KATUKENDA WEST','city':'Dankotuwa',
         'issue_date':'2026-10-22','departure_date':'2026-10-22','arrival_date':'2027-04-22',

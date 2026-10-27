@@ -5,7 +5,6 @@ from pathlib import Path
 import yaml
 from dotenv import load_dotenv
 from flask import Flask
-from werkzeug.middleware.proxy_fix import ProxyFix
 
 BASE = Path(__file__).resolve().parent.parent
 
@@ -16,8 +15,6 @@ def load_cfg() -> dict:
 def create_app() -> Flask:
     load_dotenv(BASE / ".env")
     app = Flask(__name__, instance_path=str(BASE / "instance"))
-    # Honour X-Forwarded-Prefix so the app works behind the main system's /module/insurance-agent/ proxy.
-    app.wsgi_app = ProxyFix(app.wsgi_app, x_prefix=1)
     app.config.update(
         SECRET_KEY=os.getenv("SECRET_KEY", "dev-secret-change-me"),
         MAIN_SYSTEM_API_KEY=os.getenv("MAIN_SYSTEM_API_KEY", ""),

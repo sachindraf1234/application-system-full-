@@ -33,6 +33,7 @@ interface ModuleDef {
   requiredEnv?: string[];      // names only; values come from env or module .env
   commands?: string[];         // cli modules: how to run it
   reason?: string;             // incomplete modules: why it cannot run
+  uiPath?: string;             // web modules: page shown in the section, relative to the module root (default '/')
 }
 
 const DEFINITIONS: ModuleDef[] = [
@@ -51,9 +52,14 @@ const DEFINITIONS: ModuleDef[] = [
     id: 'slbfe-automation',
     name: 'SLBFE Training & FBR Checker',
     repo: 'sachindraf1234/training-and-fbr-checking-system',
-    kind: 'cli',
+    kind: 'web',
     description: 'Two independent Playwright checkers: Pre-Departure Training (all applicants) and Family Background Report (females only).',
     dir: 'slbfe-automation',
+    cwd: 'slbfe_automation_suite',
+    entry: 'combined_dashboard.html',
+    port: 5030,
+    command: ['python3', '-m', 'http.server', '5030', '--bind', '0.0.0.0'],
+    uiPath: '/combined_dashboard.html',
     commands: [
       'pip install -r system1_training/requirements.txt',
       'python3 run_dashboard.py            # interactive menu',
@@ -71,6 +77,7 @@ const DEFINITIONS: ModuleDef[] = [
     entry: 'app.py',
     port: 5020,
     command: ['python3', 'app.py'],
+    uiPath: '/static/console.html',
     dryRun: true,
   },
 ];
@@ -158,7 +165,7 @@ function describe(def: ModuleDef) {
     commands: def.commands || [],
     reason: def.reason || null,
     dryRun: !!def.dryRun,
-    uiPath: def.kind === 'web' ? `/module/${def.id}/` : null,
+    uiPath: def.kind === 'web' ? `/module/${def.id}${def.uiPath || '/'}` : null,
     log: state.log.slice(-40),
   };
 }

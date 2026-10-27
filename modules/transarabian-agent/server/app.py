@@ -28,6 +28,12 @@ from compliance import needs_human_handoff, get_human_handoff_message
 
 app = FastAPI(title="WhatsApp Human Agent - COMPLIANT", version="3.0")
 
+# Serve the merged repo's dashboard pages (console, dashboard, group, people...) under /static.
+from fastapi.staticfiles import StaticFiles  # noqa: E402
+_UI_DIR = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "transarabian-agent", "static")
+if os.path.isdir(_UI_DIR):
+    app.mount("/static", StaticFiles(directory=_UI_DIR), name="static")
+
 @app.on_event("startup")
 def startup():
     init_db()

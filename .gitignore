@@ -13,3 +13,44 @@ modules/*/work_preview/
 modules/*/server/config.py
 !modules/insurance-agent/data/
 !modules/insurance-agent/data/cities.txt
+
+# ---- Module repos merged from GitHub (sachindraf1234/*). Kept on disk so every
+# ---- interface runs with its data, but NEVER committed: applicant PII, databases,
+# ---- uploads, generated output and credentials.
+# Insurance agent
+modules/insurance-agent/instance/
+modules/insurance-agent/uploads/
+modules/insurance-agent/work_preview/
+modules/insurance-agent/*.png
+# Trans Arabian agent (secrets: data/env.txt, uploads/env.txt, config/ngrok)
+modules/transarabian-agent/config/
+modules/transarabian-agent/uploads/
+modules/transarabian-agent/ngrok.tgz
+modules/transarabian-agent/pending_full.txt
+modules/transarabian-agent/scan_test.png
+modules/transarabian-agent/transarabian-agent/uploads/
+modules/transarabian-agent/transarabian-agent/data/uploads/
+modules/transarabian-agent/transarabian-agent/data/contact_uploads/
+modules/transarabian-agent/transarabian-agent/data/*.pdf
+modules/transarabian-agent/transarabian-agent/data/*.jpg
+modules/transarabian-agent/transarabian-agent/data/*.png
+modules/transarabian-agent/transarabian-agent/data/*.csv
+modules/transarabian-agent/transarabian-agent/data/*.json
+modules/transarabian-agent/transarabian-agent/data/env.txt
+modules/transarabian-agent/transarabian-agent/data/*.bak*
+modules/transarabian-agent/transarabian-agent/tests/*.npz
+# SLBFE training & FBR (name lists, people data, debug dumps, Chrome profile)
+modules/slbfe-automation/uploads/
+modules/slbfe-automation/config/
+modules/slbfe-automation/**/name*.txt
+modules/slbfe-automation/**/people*.csv
+modules/slbfe-automation/**/output/
+modules/slbfe-automation/slbfe_automation_suite/combined_dashboard.html
+# Module-wide: local virtualenv symlinks, instance/uploads/output folders at any depth
+modules/*/.venv
+**/instance/
+**/work_preview/
+**/uploads/
+# SLBFE: screenshots and people source data
+modules/slbfe-automation/**/*.png
+modules/slbfe-automation/**/people_source.txt
