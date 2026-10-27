@@ -8,3 +8,6 @@ modules/*/output/
 modules/*/work_preview/
 **/*.db
 **/__pycache__/
+
+# Local-only: Trans Arabian bot settings (contains secrets; never commit)
+modules/*/server/config.py
