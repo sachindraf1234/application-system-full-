@@ -26,6 +26,9 @@ interface ModuleDef {
   dir: string;                 // folder name inside modules/
   port?: number;               // web modules only
   command?: string[];          // web modules: argv, run inside dir
+  cwd?: string;                // web modules: subfolder of dir to run from
+  entry?: string;              // web modules: file that must exist (default run.py)
+  dryRun?: boolean;            // true = cannot message real people/services; allowed on the public preview
   requiredEnv?: string[];      // names only; values come from env or module .env
   commands?: string[];         // cli modules: how to run it
   reason?: string;             // incomplete modules: why it cannot run
@@ -60,10 +63,14 @@ const DEFINITIONS: ModuleDef[] = [
     id: 'transarabian-agent',
     name: 'Trans Arabian WhatsApp Agent',
     repo: 'sachindraf1234/transarabian-agent',
-    kind: 'incomplete',
-    description: 'WhatsApp Cloud API bot for Trans Arabian enquiries, applicant follow-up and bulk messaging.',
+    kind: 'web',
+    description: 'WhatsApp bot test harness (DRY RUN). Replies are recorded in a local outbox; nothing is sent to WhatsApp.',
     dir: 'transarabian-agent',
-    reason: 'Source incomplete in the repository: server/app.py imports a config module (config.txt) that was excluded because it holds secrets. Restore config.py from a private source and provide its values through environment variables before running.',
+    cwd: 'server',
+    entry: 'app.py',
+    port: 5020,
+    command: ['python3', 'app.py'],
+    dryRun: true,
   },
 ];
 
@@ -122,7 +129,7 @@ function missingEnv(def: ModuleDef): string[] {
 function sourceReady(def: ModuleDef): boolean {
   const dir = moduleDir(def);
   if (!fs.existsSync(dir)) return false;
-  if (def.kind === 'web') return fs.existsSync(path.join(dir, 'run.py'));
+  if (def.kind === 'web') return fs.existsSync(path.join(dir, def.cwd || '', def.entry || 'run.py'));
   return true;
 }
 
@@ -149,6 +156,7 @@ function describe(def: ModuleDef) {
     missingEnv: def.kind === 'web' ? missingEnv(def) : [],
     commands: def.commands || [],
     reason: def.reason || null,
+    dryRun: !!def.dryRun,
     uiPath: def.kind === 'web' ? `/module/${def.id}/` : null,
     log: state.log.slice(-40),
   };
@@ -169,7 +177,7 @@ function startModule(def: ModuleDef): { ok: boolean; message: string } {
   const env = moduleEnv(def);
   env.PORT = String(def.port);
   const [, ...args] = def.command!;
-  const child = spawn(pythonFor(def), args, { cwd: moduleDir(def), env, stdio: ['ignore', 'pipe', 'pipe'] });
+  const child = spawn(pythonFor(def), args, { cwd: path.join(moduleDir(def), def.cwd || ''), env, stdio: ['ignore', 'pipe', 'pipe'] });
   state.child = child;
   state.startedAt = new Date().toISOString();
   state.exitCode = null;
@@ -201,16 +209,17 @@ function findDef(id: string) {
 const router = Router();
 // Starting modules runs real mail/automation code with stored credentials and no login of its own,
 // so it is never allowed on a public demo server, even if MODULES_ENABLED is set.
-const startsEnabled = () => process.env.MODULES_ENABLED === 'true' && process.env.PUBLIC_DEMO !== 'true';
+const startsEnabled = (def?: ModuleDef) =>
+  process.env.MODULES_ENABLED === 'true' && (process.env.PUBLIC_DEMO !== 'true' || def?.dryRun === true);
 
 router.get('/api/modules', (_req: Request, res: Response) => {
-  res.json({ modulesEnabled: startsEnabled(), modules: DEFINITIONS.map(describe) });
+  res.json({ modulesEnabled: process.env.MODULES_ENABLED === 'true', modules: DEFINITIONS.map(describe) });
 });
 
 router.post('/api/modules/:id/start', (req: Request, res: Response) => {
   const def = findDef(String(req.params.id));
   if (!def) return res.status(404).json({ error: 'Unknown module.' });
-  if (!startsEnabled()) return res.status(403).json({ error: 'Starting modules is disabled on this server (set MODULES_ENABLED=true).' });
+  if (!startsEnabled(def)) return res.status(403).json({ error: 'Starting this module is disabled here (set MODULES_ENABLED=true; modules that can message real people never start on the public preview).' });
   const result = startModule(def);
   res.status(result.ok ? 200 : 400).json({ ...result, module: describe(def) });
 });
@@ -218,7 +227,7 @@ router.post('/api/modules/:id/start', (req: Request, res: Response) => {
 router.post('/api/modules/:id/stop', (req: Request, res: Response) => {
   const def = findDef(String(req.params.id));
   if (!def) return res.status(404).json({ error: 'Unknown module.' });
-  if (!startsEnabled()) return res.status(403).json({ error: 'Stopping modules is disabled on this server.' });
+  if (!startsEnabled(def)) return res.status(403).json({ error: 'Stopping this module is disabled on this server.' });
   const result = stopModule(def);
   res.json({ ...result, module: describe(def) });
 });

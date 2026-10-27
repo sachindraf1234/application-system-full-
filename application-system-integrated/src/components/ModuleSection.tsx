@@ -17,6 +17,7 @@ interface ModuleInfo {
   missingEnv: string[];
   commands: string[];
   reason: string | null;
+  dryRun: boolean;
   uiPath: string | null;
   log: string[];
 }
@@ -116,6 +117,11 @@ export const ModuleSection: React.FC<Props> = ({ moduleId, onBack }) => {
               <RefreshCw size={14} /> Refresh
             </button>
           </div>
+          {info.dryRun && (
+            <div className="text-sm text-blue-800 bg-blue-50 border border-blue-200 rounded p-3">
+              DRY RUN: this bot records what it would send to a local outbox (<code>modules/{info.id}/data/dry_run_outbox.jsonl</code>). Nothing is sent to WhatsApp.
+            </div>
+          )}
           {!modulesEnabled && (
             <div className="text-sm text-amber-800 bg-amber-50 border border-amber-200 rounded p-3">
               Starting modules is turned off on this server. Set <code>MODULES_ENABLED=true</code> to allow it.
